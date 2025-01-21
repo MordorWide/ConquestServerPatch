@@ -43,15 +43,23 @@ jobs:
       with:
         name: ConquestServer
 
+    - name: Generate Date-Based Tag and Release Name
+      id: date
+      run: |
+        # Get the current date in YYYY-MM-DD format
+        DATE=$(date +'%Y-%m-%d')
+        echo "TAG_NAME=release-$DATE" >> $GITHUB_ENV
+        echo "RELEASE_NAME=Release $DATE" >> $GITHUB_ENV
+
     - name: Create a GitHub Release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v${{ github.run_number }}
-        release_name: Release ${{ github.run_number }}
+        tag_name: ${{ env.TAG_NAME }}
+        release_name: ${{ env.RELEASE_NAME }}
         body: |
-          This is an automated release.
+          This is an automated release performed by GitHub Actions.
         draft: false
         prerelease: false
         files: ConquestServer.exe
