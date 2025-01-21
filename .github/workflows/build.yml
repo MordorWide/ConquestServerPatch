@@ -1,0 +1,55 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Visual Studio
+      uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+
+    - name: Configure with CMake
+      run: cmake -B build -S . -G "Visual Studio 17 2022" -A Win32
+
+    - name: Build with CMake
+      run: cmake --build build --config Release
+
+    - name: Archive the build
+      uses: actions/upload-artifact@v3
+      with:
+        name: ConquestServer
+        path: build/Release/ConquestServer.exe
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download build artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ConquestServer
+
+    - name: Create a GitHub Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ github.run_number }}
+        release_name: Release ${{ github.run_number }}
+        body: |
+          This is an automated release.
+        draft: false
+        prerelease: false
+        files: ConquestServer.exe
