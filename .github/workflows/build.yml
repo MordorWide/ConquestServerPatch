@@ -62,4 +62,13 @@ jobs:
           This is an automated release performed by GitHub Actions.
         draft: false
         prerelease: false
-        files: ConquestServer.exe
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.date.outputs.upload_url }}
+        asset_path: ./ConquestServer.exe
+        asset_name: ConquestServer.exe
+        asset_content_type: application/octet-stream
