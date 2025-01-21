@@ -44,7 +44,6 @@ jobs:
         name: ConquestServer
 
     - name: Generate Date-Based Tag and Release Name
-      id: date
       run: |
         # Get the current date in YYYY-MM-DD format
         DATE=$(date +'%Y-%m-%d')
@@ -52,6 +51,7 @@ jobs:
         echo "RELEASE_NAME=Release $DATE" >> $GITHUB_ENV
 
     - name: Create a GitHub Release
+      id: make_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -68,7 +68,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.date.outputs.upload_url }}
+        upload_url: ${{ steps.make_release.outputs.upload_url }}
         asset_path: ./ConquestServer.exe
         asset_name: ConquestServer.exe
         asset_content_type: application/octet-stream
