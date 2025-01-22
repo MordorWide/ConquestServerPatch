@@ -9,7 +9,7 @@ The application disables the SSL check and changes the endpoints from the shut-d
 ## How to Use
 1. Install `Lord of the Rings: Conquest Dedicated PC Server` on your computer.
 2. Go to the installation directory and rename the file `ConquestServer.exe` into `OriginalConquestServer.exe`. The exact file name is important! The directory may be `C:\Program Files (x86)\Electronic Arts\The Lord of the Rings - Conquest Dedicated Server (PC)`.
-3. Download the `ConquestServer.exe` from this repository at the release page: [`ConquestServer.exe`](https://github.com/j-frei/MordorWide-ConquestServerPatch/releases/latest)
+3. Download the `ConquestServer.exe` from this repository at the release page: [`ConquestServer.exe`](https://github.com/MordorWide/ConquestServerPatch/releases/latest)
 4. Copy the downloaded file into the installation directory of the dedicated server.
 
 ## Manual Build
@@ -21,7 +21,7 @@ If you want to build the program yourself, do the following steps:
 $env:Path = 'C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin;' + $env:Path
 
 # Clone and enter this repository
-git clone https://github.com/j-frei/MordorWide-ConquestServerPatch MordorWide-ConquestServerPatch
+git clone https://github.com/MordorWide/ConquestServerPatch MordorWide-ConquestServerPatch
 cd MordorWide-ConquestServerPatch
 
 # Prepare directory
