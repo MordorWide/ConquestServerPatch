@@ -3,12 +3,13 @@
 This repository contains the source code to run the dedicated server for `The Lord of the Rings: Conquest` using the EA Nation re-implementation MordorWide.
 
 The application disables the SSL check and changes the endpoints from the shut-down EA servers to the re-implemented ones.
+Both the PC dedicated server as well as the PS3 dedicated server binary is supported.
 
 **Note:** You don't need this if you don't want to host a dedicated server on your own.
 
 ## How to Use
 1. Install `Lord of the Rings: Conquest Dedicated PC Server` on your computer.
-2. Go to the installation directory and rename the file `ConquestServer.exe` into `OriginalConquestServer.exe`. The exact file name is important! The directory may be `C:\Program Files (x86)\Electronic Arts\The Lord of the Rings - Conquest Dedicated Server (PC)`.
+2. Go to the installation directory and rename the file `ConquestServer.exe` into `OriginalConquestServer.exe`. The exact file name is important! The directory may be `C:\Program Files (x86)\Electronic Arts\The Lord of the Rings - Conquest Dedicated Server (PC)`. (Or the corresponding, PS3-related directory)
 3. Download the `ConquestServer.exe` from this repository at the release page: [`ConquestServer.exe`](https://github.com/MordorWide/ConquestServerPatch/releases/latest)
 4. Copy the downloaded file into the installation directory of the dedicated server.
 
