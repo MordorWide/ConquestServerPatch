@@ -18,9 +18,9 @@ struct AddressInfo {
 static const AddressInfo GENUINE_PC = {
     12526864,
     reinterpret_cast<const BYTE*>(0x006091B9),
-    reinterpret_cast<const BYTE*>(0x009a1914),
-    reinterpret_cast<const BYTE*>(0x009a1b84),
-    reinterpret_cast<const BYTE*>(0x009a1b7c)
+    reinterpret_cast<const BYTE*>(0x009A1908),
+    reinterpret_cast<const BYTE*>(0x009A1B84),
+    reinterpret_cast<const BYTE*>(0x009A1B7C)
 };
 
 static const AddressInfo GENUINE_PS3 = {
