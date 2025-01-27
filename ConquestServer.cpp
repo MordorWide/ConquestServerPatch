@@ -1,7 +1,9 @@
 #include <windows.h>
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <vector>
+#include <string>
 #include <tlhelp32.h>
 
 struct AddressInfo {
@@ -228,7 +230,7 @@ int wmain(int argc, wchar_t* argv[]) {
     std::vector<BYTE> PATCH_EANATION_ENDPOINT_2_PATTERN = { 0x2e, 0x66, 0x65, 0x73, 0x6c, 0x00 };
     std::vector<BYTE> PATCH_EANATION_ENDPOINT_2_REPLACEMENT = { 0x2e, 0x6d, 0x6f, 0x72, 0x64, 0x00 };
     std::cout << "Trying to patch EANation Endpoint 2...\n";
-    while (!WriteProtectedMemory(hProcess, (LPVOID)matchedInfo->endpoint1_position, PATCH_EANATION_ENDPOINT_2_REPLACEMENT)) {
+    while (!WriteProtectedMemory(hProcess, (LPVOID)matchedInfo->endpoint2_position, PATCH_EANATION_ENDPOINT_2_REPLACEMENT)) {
         Sleep(1);
     }
     std::cout << "Patched EANation Endpoint 2 successfully.\n";
@@ -237,7 +239,7 @@ int wmain(int argc, wchar_t* argv[]) {
     std::vector<BYTE> PATCH_EANATION_ENDPOINT_3_PATTERN = { 0x2e, 0x65, 0x61, 0x2e, 0x63, 0x6f, 0x6d, 0x00 };
     std::vector<BYTE> PATCH_EANATION_ENDPOINT_3_REPLACEMENT = { 0x6f, 0x72, 0x77, 0x69, 0x2e, 0x64, 0x65, 0x00 };
     std::cout << "Trying to patch EANation Endpoint 3...\n";
-    while (!WriteProtectedMemory(hProcess, (LPVOID)matchedInfo->endpoint1_position, PATCH_EANATION_ENDPOINT_3_REPLACEMENT)) {
+    while (!WriteProtectedMemory(hProcess, (LPVOID)matchedInfo->endpoint3_position, PATCH_EANATION_ENDPOINT_3_REPLACEMENT)) {
         Sleep(1);
     }
     std::cout << "Patched EANation Endpoint 3 successfully.\n";
