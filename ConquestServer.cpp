@@ -8,10 +8,11 @@
 
 struct AddressInfo {
     SIZE_T n_bytes;
-    const BYTE* ssl_position;       // Address of the SSL check
-    const BYTE* endpoint1_position; // Address of 'fesl.ea.com\x00'
-    const BYTE* endpoint2_position; // Address of '.fesl\x00'
-    const BYTE* endpoint3_position; // Address of '.ea.com\x00'
+    const BYTE* ssl_position;          // Address of the SSL check
+    const BYTE* endpoint1_position;    // Address of 'fesl.ea.com\x00'
+    const BYTE* endpoint2_position;    // Address of '.fesl\x00'
+    const BYTE* endpoint3_position;    // Address of '.ea.com\x00'
+    const BYTE* max_fps_clip_position; // Address of the max fps clip
 };
 
 // Declare static AddressInfo objects
@@ -20,7 +21,8 @@ static const AddressInfo GENUINE_PC = {
     reinterpret_cast<const BYTE*>(0x006091B9),
     reinterpret_cast<const BYTE*>(0x009A1908),
     reinterpret_cast<const BYTE*>(0x009A1B84),
-    reinterpret_cast<const BYTE*>(0x009A1B7C)
+    reinterpret_cast<const BYTE*>(0x009A1B7C),
+    reinterpret_cast<const BYTE*>(0x0089AB9D)
 };
 
 static const AddressInfo GENUINE_PS3 = {
@@ -28,7 +30,8 @@ static const AddressInfo GENUINE_PS3 = {
     reinterpret_cast<const BYTE*>(0x00609FD9),
     reinterpret_cast<const BYTE*>(0x009A2890),
     reinterpret_cast<const BYTE*>(0x009A2B0C),
-    reinterpret_cast<const BYTE*>(0x009A2B04)
+    reinterpret_cast<const BYTE*>(0x009A2B04),
+    reinterpret_cast<const BYTE*>(0x0089AEBE)
 };
 
 
@@ -153,6 +156,7 @@ int wmain(int argc, wchar_t* argv[]) {
     std::wcout << L"Endpoint 1 Position: " << matchedInfo->endpoint1_position << L"\n";
     std::wcout << L"Endpoint 2 Position: " << matchedInfo->endpoint2_position << L"\n";
     std::wcout << L"Endpoint 3 Position: " << matchedInfo->endpoint3_position << L"\n";
+    std::wcout << L"Max FPS Clip Position: " << matchedInfo->max_fps_clip_position << L"\n";
 
     // Step 2: Launch the target program with ShellExecute
     std::wstring arguments;
@@ -163,7 +167,7 @@ int wmain(int argc, wchar_t* argv[]) {
 
     HINSTANCE hInstance = ShellExecute(
         NULL,
-        L"open",             // Operation to perform
+        L"open",               // Operation to perform
         targetProgram.c_str(), // Path to the target program
         arguments.c_str(),     // Arguments to pass
         NULL,                  // Default working directory
@@ -243,6 +247,15 @@ int wmain(int argc, wchar_t* argv[]) {
         Sleep(1);
     }
     std::cout << "Patched EANation Endpoint 3 successfully.\n";
+
+    // Patch Max FPS Clip - Patch 'PUSH 0x1e' (6a1e) to 'PUSH 0x3c' (6a3c)
+    std::vector<BYTE> PATCH_MAX_FPS_CLIP_PATTERN = { 0x1e };
+    std::vector<BYTE> PATCH_MAX_FPS_CLIP_REPLACEMENT = { 0x3c };
+    std::cout << "Trying to patch Max FPS Clip...\n";
+    while (!WriteProtectedMemory(hProcess, (LPVOID)matchedInfo->max_fps_clip_position, PATCH_MAX_FPS_CLIP_REPLACEMENT)) {
+        Sleep(1);
+    }
+    std::cout << "Patched Max FPS Clip successfully.\n";
 
     // Step 6: Clean up
     CloseHandle(hProcess);
